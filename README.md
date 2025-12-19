@@ -1,7 +1,7 @@
 # Self-Supervised SOL
 This is the code for the paper "Data-driven and self-supervised spectral operator learning methods for the heat condution equation with variable source functions".
 
--'poisson' contains the codebase and trained SOL models.
+-'poisson' contains the codebase.
 
 -'SOL2_0' contains the necessary source code of the SOL models, and we refer to [OPNO](https://github.com/liu-ziyuan-math/spectral_operator_learning) and [SPFNO](https://github.com/liu-ziyuan-math/SPFNO) for details.
 
