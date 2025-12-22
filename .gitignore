@@ -1,4 +1,4 @@
 poisson/data/elli2d-Nx401-GRF-alpha2-0.pt
 poisson/data/elli2d-Nx401-GRF-alpha2-mixedBC.pt
-poisson/models/4.3.1 approximation abilities/*.pkl
-poisson/models/4.3.1 approximation abilities/*.pkl:Zone.Identifier
+poisson/models/**/*.pkl
+poisson/models/**/*.pkl:Zone.Identifier
