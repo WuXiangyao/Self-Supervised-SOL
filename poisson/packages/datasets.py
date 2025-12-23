@@ -1,10 +1,11 @@
 import torch
 from torch.utils.data import DataLoader
-from packages.GRF_ref_16 import gaussian_random_field_batch
-from packages.loss import weak, strong, DST
-from packages.utilities3 import eval_query
 
-device = torch.device('cuda:0')
+from .GRF_ref_16 import gaussian_random_field_batch
+from .loss import weak, strong
+
+device = torch.device('cuda:0') if torch.cuda.is_available() else torch.device('cpu')
+
 ## load data
 def rand_loader(size, Nx, batch_size = 20, alpha = 2, same_batches = True):
     # combine input data with mesh
@@ -21,7 +22,7 @@ def rand_loader(size, Nx, batch_size = 20, alpha = 2, same_batches = True):
         torch.utils.data.TensorDataset(f_data, u_data), batch_size=batch_size,
         shuffle=True)
     
-def LoadData(data_dir = '/code/poisson/data/',
+def LoadData(data_dir = 'poisson/data/',
              name = '', 
              sub = 1, batch_size = 20, alpha = 2, test_size = 100,
              train_size = 0, w = 0, s = 0, 
@@ -92,7 +93,7 @@ def test_dataset(train_loader, batch_size, Nx):
     data_strongloss /= batch_size * len(train_loader)
     print('weak loss='+str(data_weakloss.item()),'strong loss='+str(data_strongloss.item()))
 
-def Load_testdata(data_dir = '/code/poisson/data/',
+def Load_testdata(data_dir = 'poisson/data/',
              name = '', 
              sub = 1, batch_size = 1, test_size = 100,
              comb = True
@@ -119,23 +120,3 @@ def Load_testdata(data_dir = '/code/poisson/data/',
         shuffle=False)
 
     return data_size, Nx, test_loader
-
-def Load_pcdata(pointcloud, data_path, test_size, sub):
-    raw_data = torch.load(data_path,weights_only=True)
-    x_data, y_data = raw_data['f'], raw_data['u']
-    size, Nx = x_data.shape
-    n_points = pointcloud[1]
-    x_unif = torch.linspace(0, 1, Nx)
-    mesh = torch.stack(torch.meshgrid(x_unif, x_unif, indexing = 'ij'), dim=-1)
-    x_data = x_data[..., None] 
-    x_data = torch.cat([x_data, mesh[None, ...].repeat(x_data.shape[0], 1, 1, 1)], dim=-1)
-
-    x_data = x_data[:,::sub,::sub,:][-test_size:]
-    y_data = y_data[-test_size:]
-    y_pc = eval_query(DST(y_data), pointcloud[:, :, 0], pointcloud[:, :, 1]).reshape(size, n_points)
-
-    test_loader = DataLoader(
-        torch.utils.data.TensorDataset(x_data, y_pc), batch_size=1,
-        shuffle=False)
-
-    return test_loader

@@ -2,14 +2,13 @@ import torch
 import functools
 import sys
 
-import packages.fourierpack as sp
-import matplotlib.pyplot as plt
+from . import fourierpack as sp
 from SOL2_0.NOs_dict.models import Wrapper, FuncMat_Wrapper
-from SOL2_0.utilities import LpLoss
+from .utilities import LpLoss
 
 ## Parameters
 kx = 0.01
-device = torch.device("cuda:0")
+device = torch.device("cuda:0") if torch.cuda.is_available() else torch.device("cpu")
 
 
 ## Spectral transforms

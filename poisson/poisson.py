@@ -10,11 +10,8 @@ import matplotlib.pyplot as plt
 from timeit import default_timer
 
 from SOL2_0.NOs_dict.models import SinNO2d
-from SOL2_0.Adam import Adam
 
-from packages.utilities3 import LpLoss, count_params
-from packages.loss import weak, strong
-from packages.datasets import LoadData, test_dataset, rand_loader
+from packages import Adam, LpLoss, count_params, weak, strong, LoadData, test_dataset, rand_loader
 
 #### fixing seeds
 torch.manual_seed(0)
@@ -31,7 +28,7 @@ def get_args():
     ## data
     parser.add_argument(
         "--data-dict",
-        default="/code/poisson/data/",
+        default="poisson/data/",
         type=str,
         help="dataset folder",
     )
@@ -65,7 +62,7 @@ def get_args():
     ## model
     parser.add_argument(
         "--model-dict",
-        default="/code/poisson/models/",
+        default="poisson/models/",
         type=str,
         help="model folder",
     )
@@ -105,7 +102,8 @@ patience = args.patience
 unfixed = args.unfixed  
 alpha = args.alpha
 
-device = torch.device("cuda:0")
+device = torch.device("cuda:0") if torch.cuda.is_available() else torch.device("cpu")
+
 ddtype = torch.float64
 train_withdata = False
 
@@ -165,7 +163,6 @@ print("model:", file_name)
 if not os.path.exists(args.model_dict):
     print("----------Warning: model path does not exist:")
     print(args.model_dict)
-    halt
 
 if os.path.exists(result_PATH):
     print("----------Warning: pre-trained model already exists:")
@@ -235,7 +232,7 @@ for ep in range(epochs):
     t1 = default_timer()
     for x, y in train_loader:
         optimizer.zero_grad()
-        x, y = x.cuda(), y.cuda()
+        x, y = x.to(device), y.to(device)
         out = model(x).reshape(batch_size, Nx, Nx)
 
         if train_withdata:
