@@ -1,5 +1,6 @@
 poisson/data/elli2d-Nx401-GRF-alpha2-0.pt
 poisson/data/elli2d-Nx401-GRF-alpha2-mixedBC.pt
-poisson/models/**/*.pkl
+*.backup
 poisson/models/**/*.pkl:Zone.Identifier
 .vscode/
+clean.py
