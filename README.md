@@ -7,7 +7,7 @@ This is the code for the paper "Data-driven and self-supervised spectral operato
 
 - 'poisson/SOL2_0' contains the necessary source code of the SOL models, and we refer to [Orthogonal Polynomial Neural Operator, OPNO](https://github.com/liu-ziyuan-math/spectral_operator_learning) and [semi-periodic Fourier neural operator, SPFNO](https://github.com/liu-ziyuan-math/SPFNO) for details.
 
-- We would upload the trained models in 'poisson/models' soon.
+- 'poisson/models' contains the trained data-driven and self-supervised SOL models.
 
 ## Dataset
 The dataset we used in the experiments are now available at 
