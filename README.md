@@ -1,4 +1,4 @@
-# Self-Supervised Spectral Operator Learning
+# Data-driven and self-supervised spectral operator learning
 This is the code for the paper "Data-driven and self-supervised spectral operator learning methods for the heat condution equation with variable source functions".
 
 - 'poisson' contains the codebase.
