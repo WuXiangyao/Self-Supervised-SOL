@@ -1,0 +1,25 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: >-
+  Data-driven and Self-supervised Spectral Operator Learning
+  (Source Code and Dataset)
+message: >-
+  If you use this dataset, please cite it using the metadata
+  from this file.
+type: dataset
+authors:
+  - given-names: Xiangyao
+    family-names: Wu
+    email: xiangyao@nudt.edu.cn
+  - given-names: Ziyuan
+    family-names: Liu
+  - given-names: Ruijie
+    family-names: Bai
+  - given-names: Yuhang
+    family-names: Wu
+  - given-names: Xu
+    family-names: Qian
+repository-code: >-
+  https://github.com/WuXiangyao/Data-driven-and-self-supervised-spectral-operator-learning
